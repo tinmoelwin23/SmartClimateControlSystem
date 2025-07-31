@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "climate.airquality";
+option java_outer_classname = "AirQualityProto";
+
+package airquality;
+
+service AirQualityMonitor {
+    rpc StreamAirQuality(SensorRequest) returns (stream AirQualityReading);
+}
+
+message SensorRequest {
+    string sensor_id = 1;
+    string location = 2;
+}
+
+message AirQualityReading {
+    float co2 = 1;
+    float no2 = 2;
+    float pm2_5 = 3;
+    string timestamp = 4;
+}

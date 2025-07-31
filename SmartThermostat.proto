@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "climate.thermostat";
+option java_outer_classname = "ThermostatProto";
+
+package thermostat;
+
+service SmartThermostat {
+    rpc SetTemperature(TempRequest) returns (TempResponse);
+    rpc StreamOccupancy(stream OccupancyUpdate) returns (stream HVACState);
+}
+
+message TempRequest {
+    float desired_temp = 1;
+    string room = 2;
+}
+
+message TempResponse {
+    string status = 1;
+    string power_usage = 2;
+}
+
+message OccupancyUpdate {
+    bool is_occupied = 1;
+    string room = 2;
+    string timestamp = 3;
+}
+
+message HVACState {
+    string mode = 1;
+    float current_temp = 2;
+    string efficiency = 3;
+}
+

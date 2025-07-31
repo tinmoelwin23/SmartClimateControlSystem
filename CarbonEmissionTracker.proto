@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "climate.emissions";
+option java_outer_classname = "EmissionsProto";
+
+package emissions;
+
+service CarbonEmissionTracker {
+    rpc LogDeviceUsage(stream UsageEntry) returns (EmissionSummary);
+}
+
+message UsageEntry {
+    string device_type = 1;
+    float duration_hours = 2;
+    float power_rating_kw = 3;
+    string timestamp = 4;
+}
+
+message EmissionSummary {
+    float total_co2 = 1;
+    string suggestions = 2;
+}
